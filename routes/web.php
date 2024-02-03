@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Auth\Login;
+use App\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +19,5 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get('/', \App\Livewire\Auth\Login::class)->name('login');
+Route::get('/login', Login::class)->name('login');
+Route::get('/register', Register::class)->name('register');

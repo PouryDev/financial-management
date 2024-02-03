@@ -47,7 +47,6 @@
         scale: 1.1
     })
 </script>
-<script src="{{ asset('assets/auth/js/main.js') }}"></script>
 
 
 
