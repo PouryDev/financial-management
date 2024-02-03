@@ -2,6 +2,7 @@
 
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
+use App\Livewire\Dashboard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('livewire.layouts.app');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', Dashboard::class)->name('home');
+    Route::get('/logout', function () {
+        auth()->logout();
+        return redirect(route('login'));
+    });
 });
-
-Route::get('/login', Login::class)->name('login');
-Route::get('/register', Register::class)->name('register');
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/login', Login::class)->name('login');
+    Route::get('/register', Register::class)->name('register');
+});

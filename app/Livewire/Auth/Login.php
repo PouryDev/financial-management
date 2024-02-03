@@ -34,9 +34,10 @@ class Login extends Component
             return;
         }
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         $this->showAlert('Login was successful', 'success');
+        $this->redirect(route('home'));
     }
 
     public function alert(string $title): void

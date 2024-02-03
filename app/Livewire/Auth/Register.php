@@ -47,8 +47,10 @@ class Register extends Component
             return;
         }
 
-        Auth::login($user);
+        Auth::login($user, true);
         $this->showAlert('You have been registered successfully', 'success');
+
+        $this->redirect(route('home'));
      }
 
     public function render(): View
