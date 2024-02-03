@@ -3,6 +3,7 @@
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Dashboard;
+use App\Livewire\Transaction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', Dashboard::class)->name('home');
+    Route::get('/transactions', Transaction::class)->name('transaction');
+
     Route::get('/logout', function () {
         auth()->logout();
         return redirect(route('login'));

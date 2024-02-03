@@ -7,3 +7,6 @@ const allButtons = [].map.call(document.querySelectorAll('.mdc-button'), functio
 const navBars = [].map.call(document.querySelectorAll('.mdc-top-app-bar'), function(el) {
     el.setAttribute('data-mdc-auto-init', 'MDCTopAppBar')
 });
+const allDataTables = [].map.call(document.querySelectorAll('.mdc-data-table'), el => {
+    el.setAttribute('data-mdc-auto-init', 'MDCDataTable')
+});

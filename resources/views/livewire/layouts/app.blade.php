@@ -25,7 +25,7 @@
     <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
             <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" aria-label="Open navigation menu">menu</button>
-            <span class="mdc-top-app-bar__title">{{ auth()->user()->name }} ({{ number_format(auth()->user()->balance + 3000000) }})</span>
+            <span class="mdc-top-app-bar__title">{{ auth()->user()->name }} ({{ number_format(auth()->user()->balance) }})</span>
         </section>
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
         </section>
@@ -34,12 +34,12 @@
 <aside class="mdc-drawer mdc-drawer--modal">
     <div class="mdc-drawer__content">
         <nav class="mdc-list">
-            <a class="mdc-list-item {{ ($active ?? '') === 'dashboard' ? 'mdc-list-item--activated' : '' }} pk-list-item" href="#" aria-current="page" tabindex="0">
+            <a class="mdc-list-item {{ ($active ?? '') === 'dashboard' ? 'mdc-list-item--activated' : '' }} pk-list-item" href="{{ route('home') }}" aria-current="page" tabindex="0">
                 <span class="mdc-list-item__ripple"></span>
                 <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
                 <span class="mdc-list-item__text">Dashboard</span>
             </a>
-            <a class="mdc-list-item {{ ($active ?? '') === 'transaction' ? 'mdc-list-item--activated' : '' }} pk-list-item" href="#">
+            <a class="mdc-list-item {{ ($active ?? '') === 'transaction' ? 'mdc-list-item--activated' : '' }} pk-list-item" href="{{ route('transaction') }}">
                 <span class="mdc-list-item__ripple"></span>
                 <i class="material-icons mdc-list-item__graphic" aria-hidden="true">receipt</i>
                 <span class="mdc-list-item__text">Transactions</span>
@@ -54,7 +54,7 @@
 </aside>
 
 <div class="mdc-drawer-scrim"></div>
-<main class="mdc-top-app-bar--fixed-adjust">
+<main class="mdc-top-app-bar--fixed-adjust" style="text-align: center">
     <div style="margin-top: 20px">
         {{ $slot }}
     </div>

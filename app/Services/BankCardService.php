@@ -81,4 +81,28 @@ class BankCardService
         $destCard->balance += $amount;
         $destCard->save();
     }
+
+    /**
+     * Increase the balance of the bank card
+     *
+     * @param BankCardModel|string $card
+     * @param float $amount
+     * @return float|null
+     */
+    public static function increaseBalance(BankCardModel|string $card, float $amount): ?float
+    {
+        if (is_string($card)) {
+            $card = BankCard::find($card);
+        }
+
+        $balance = $card->balance + $amount;
+        $res = BankCard::update($card->id, [
+            'balance' => $balance,
+        ]);
+        if (!$res) {
+            return null;
+        }
+
+        return $balance;
+    }
 }

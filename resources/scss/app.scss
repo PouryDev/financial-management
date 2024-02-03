@@ -1,26 +1,26 @@
 @use '@material/button/mdc-button';
 @use '@material/button';
-
 @use "@material/floating-label/mdc-floating-label";
 @use "@material/line-ripple/mdc-line-ripple";
 @use "@material/notched-outline/mdc-notched-outline";
 @use "@material/textfield";
-
 @use "@material/icon-button/styles";
 @use "@material/icon-button";
 @use "@material/top-app-bar/mdc-top-app-bar";
-
 @use "@material/drawer";
 @use "@material/list/evolution-mixins"as list-evolution-mixins;
+@use "@material/data-table/data-table";
+
 
 @include drawer.core-styles;
 @include drawer.dismissible-core-styles;
 @include drawer.modal-core-styles;
 @include list-evolution-mixins.core-styles;
-
+@include data-table.core-styles;
+@include data-table.theme-baseline;
+@include textfield.core-styles;
 
 @import "@material/icon-button/mdc-icon-button";
-@include textfield.core-styles;
 
 .pk-list-item {
     padding: 15px;
