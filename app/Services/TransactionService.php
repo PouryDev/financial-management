@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Facades\Transaction;
 use App\Models\Transaction as TransactionModel;
+use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 
 class TransactionService
@@ -14,6 +15,7 @@ class TransactionService
      * @param string $title
      * @param float $amount
      * @param string $userID
+     * @param Carbon|null $paidAt
      * @param string|null $bankCardID
      * @return null|TransactionModel
      */
@@ -21,6 +23,7 @@ class TransactionService
         string $title,
         float $amount,
         string $userID,
+        ?Carbon $paidAt,
         string $bankCardID = null
     ): ?TransactionModel
     {
@@ -30,6 +33,7 @@ class TransactionService
             'amount' => $amount,
             'title' => $title,
             'bank_card_id' => $bankCardID,
+            'paid_at' => $paidAt,
         ]);
     }
 
@@ -39,6 +43,7 @@ class TransactionService
      * @param string $id
      * @param string|null $title
      * @param float|null $amount
+     * @param Carbon|null $paidAt
      * @param string|null $bankCardID
      * @return float
      */
@@ -46,7 +51,8 @@ class TransactionService
         string $id,
         string $title = null,
         float $amount = null,
-        string $bankCardID = null
+        Carbon $paidAt = null,
+        string $bankCardID = null,
     ): float
     {
         $transaction = Transaction::find($id);
@@ -55,12 +61,12 @@ class TransactionService
             # Get difference between old and new amount
             $diff = round($amount - (float)$transaction->amount, 2);
         }
-
         # Update transaction
         Transaction::update($id, [
             'amount' => $amount ?? $transaction->amount,
             'title' => $title ?? $transaction->title,
             'bank_card_id' => $bankCardID ?? $transaction->bank_card_id,
+            'paid_at' => $paidAt ?? $transaction->paid_at,
         ]);
 
         return $diff ?? 0;

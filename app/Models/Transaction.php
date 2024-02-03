@@ -15,6 +15,10 @@ class Transaction extends Model
 
     protected $appends = ['formatted_amount'];
 
+    protected $casts = [
+        'paid_at' => 'date',
+    ];
+
     /**
      * Get related user to transaction
      *

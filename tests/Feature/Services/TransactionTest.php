@@ -33,7 +33,7 @@ class TransactionTest extends TestCase
     {
         # Create a new transaction with positive amount
         $service = new TransactionService();
-        $transaction = $service->create('Test title 1', self::AMOUNT, $this->user->id);
+        $transaction = $service->create('Test title 1', self::AMOUNT, $this->user->id, now());
 
         # Assert if transaction created successfully
         $this->assertNotEmpty($transaction);
@@ -44,7 +44,7 @@ class TransactionTest extends TestCase
     {
         # Create a new transaction with negative amount
         $service = new TransactionService();
-        $transaction = $service->create('Test title 2', -self::AMOUNT, $this->user->id);
+        $transaction = $service->create('Test title 2', -self::AMOUNT, $this->user->id, now());
 
         # Assert if transaction created successfully
         $this->assertNotEmpty($transaction);
@@ -53,24 +53,30 @@ class TransactionTest extends TestCase
     public function test_update_transaction()
     {
         # Create a new transaction
-        $transaction = TransactionService::create('Test title 3', self::AMOUNT, $this->user->id);
+        $transaction = TransactionService::create('Test title 3', self::AMOUNT, $this->user->id, now());
 
 
         # Update created transaction and get the difference
-        $diff = TransactionService::update($transaction->id, 'Updated test title 3', -self::AMOUNT);
+        $diff = TransactionService::update(
+            $transaction->id,
+            'Updated test title 3',
+            -self::AMOUNT,
+            now()->subDay(),
+        );
 
         # Check if diff is calculated correctly
         $this->assertEquals(-self::AMOUNT - self::AMOUNT, $diff);
 
         # Check if updated successfully in storage
-        $newAmount = Transaction::where('amount', -self::AMOUNT)->first()->amount;
-        $this->assertNotEquals($transaction->amount, $newAmount);
+        $newTransaction = Transaction::where('amount', -self::AMOUNT)->first();
+        $this->assertNotEquals($transaction->amount, $newTransaction->amount);
+        $this->assertEquals($newTransaction->paid_at->format('Y-m-d'), now()->subDay()->format('Y-m-d'));
     }
 
     public function test_delete_transaction()
     {
         # Create a new transaction
-        $transaction = TransactionService::create('Test title 4', self::AMOUNT, $this->user->id);
+        $transaction = TransactionService::create('Test title 4', self::AMOUNT, $this->user->id, now());
 
         # Get transaction id
         $id = $transaction->id;
@@ -99,6 +105,7 @@ class TransactionTest extends TestCase
             $this->faker->title,
             self::AMOUNT,
             $this->user->id,
+            now(),
             $id,
         );
 
@@ -120,6 +127,7 @@ class TransactionTest extends TestCase
             $this->faker->title,
             self::AMOUNT,
             $this->user->id,
+            now(),
             $oldID,
         );
 

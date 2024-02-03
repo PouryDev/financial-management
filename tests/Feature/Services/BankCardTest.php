@@ -87,6 +87,7 @@ class BankCardTest extends TestCase
             $this->faker->title,
             $this->faker->numberBetween(100000, 150000),
             $this->user->id,
+            now(),
             $id,
         );
 
