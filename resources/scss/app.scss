@@ -6,5 +6,26 @@
 @use "@material/notched-outline/mdc-notched-outline";
 @use "@material/textfield";
 
+@use "@material/icon-button/styles";
+@use "@material/icon-button";
+@use "@material/top-app-bar/mdc-top-app-bar";
 
+@use "@material/drawer";
+@use "@material/list/evolution-mixins"as list-evolution-mixins;
+
+@include drawer.core-styles;
+@include drawer.dismissible-core-styles;
+@include drawer.modal-core-styles;
+@include list-evolution-mixins.core-styles;
+
+
+@import "@material/icon-button/mdc-icon-button";
 @include textfield.core-styles;
+
+.pk-list-item {
+    padding: 15px;
+}
+
+.pk-header-shadow {
+    box-shadow: -3px 4px 3px rgba(0,0,0,.3);
+}

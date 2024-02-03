@@ -12,7 +12,9 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
+        "@material/drawer": "^14.0.0",
         "@material/ripple": "^14.0.0",
+        "@material/top-app-bar": "^14.0.0",
         "material-components-web": "^14.0.0",
         "sweetalert2": "^11.10.4"
     }
